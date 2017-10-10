@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+    {% block content %}
+    <style>
+            error{
+                color: red;
+            }
+            form {
+                background-color: #eee;
+                padding: 20px;
+                margin: 0 auto;
+                width: 540px;
+                font: 16px sans-serif;
+                border-radius: 10px;
+    </style>
+
+<h1>{{blog.blog_title}}</h1>
+<p>{{blog.blog_body}}</p>
+
+{% endblock %}

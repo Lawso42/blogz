@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+    {% block content %}
+    <style>
+            error{
+                color: red;
+            }
+            form {
+                background-color: #eee;
+                padding: 20px;
+                margin: 0 auto;
+                width: 540px;
+                font: 16px sans-serif;
+                border-radius: 10px;
+    </style>
+
+    <h1>Build a Blog</h1>
+    
+    {% for row in blog_info %}
+        <h2><a href = "/newblog?id={{row.id}}"> {{row.blog_title}}</a></h2>
+        <p>{{row.blog_body}}</p><br>
+    {% endfor %}
+            
+        
+
+{% endblock %}
