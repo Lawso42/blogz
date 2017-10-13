@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1>Users</h1>
+    
+    {% for row in user_info %}
+        
+        <h2><a href = "/blog?id={{row.id}}"> {{row.email}}</a></h2>
+        
+        
+    {% endfor %}
+            
+        
+
+{% endblock %}

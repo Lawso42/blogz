@@ -13,12 +13,17 @@
                 border-radius: 10px;
     </style>
 
-    <h1>Build a Blog</h1>
+    <h1>UserName</h1>
     
-    {% for row in blog_info %}
+    
+    
+    {% for row in user_names %}
         
-        <h2><a href = "/?id={{row.id}}"> {{row.blog_title}}</a></h2>
-        <p>{{row.blog_body}}</p><br>
+        {% if blog_id == row.owner_id %}
+            <h2><a href = "/{{row.email}}?id={{row.id}}"> {{row.blog_title}}</a></h2>
+            <p>{{row.blog_body}}</p><br>
+        
+        {% endif %}
         
     {% endfor %}
             
