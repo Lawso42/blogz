@@ -139,22 +139,29 @@ def login():
 def login_post():
     email_error = ''
     password_error = ''
+    password_error_two = ''
     email = request.form['email']
     password = request.form['password']
     user = User.query.filter_by(email=email).first()
+    password_check = str(User.query.filter_by(password=password).first())
     if len(email) < 1:
         email_error = "please fill in the email"
     if len(password) < 1:
         password_error = "please fill in your password"
+    #if password != password_check:
+        #password_error_two = "Incorrect password"
+    
     if not user:
         email_error = 'this email is not in our records'
-    if not email_error and not password_error:
+    if not email_error and not password_error and not password_error_two:
         if user and user.password == password:
             session['email'] = email
             flash("Logged in", 'success')
             return redirect('/')
         else:
+            password_error = "Password incorrect, or does not exist"
             return render_template("login.html", title = 'error', email_error = email_error, password_error = password_error, email = email, password = password)
+            
             #flash('User password incorrect, or does not exist', 'error')
     else:
         password_error = 'invalid password'
