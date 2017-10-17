@@ -177,20 +177,35 @@ def register():
 def register_post():
     email = request.form['email']
     password = request.form['password']
+    verify = request.form['verify']
+    password_error = ''
+    email_error = ''
+    password_error_two = ''
     verify_password = request.form['verify']
+    if len(password) < 1:
+        password_error = 'please fill out this field'
+        #return render_template('signup.html', title = 'register', password_error = password_error, password_error_two = password_error_two, email_error = email_error)
+    if len(email) < 1:
+        email_error = 'please fill out this field'
+        #return render_template('signup.html', title = 'register', password_error = password_error, password_error_two = password_error_two, email_error = email_error)
+    if verify != password:
+        password_error_two='passwords do not match'
+        #return render_template('signup.html', title = 'register', password_error = password_error, password_error_two = password_error_two, email_error = email_error)
 
     existing_user = User.query.filter_by(email=email).first()
-    if existing_user == None:
-        new_user = User(email, password)
-        db.session.add(new_user)
-        db.session.commit()
-        flash("{} User Created".format(email), 'success')
-        session['email'] = email
-        return redirect('/')
+    if not password_error and not password_error_two and not email_error:
+        if existing_user == None:
+            new_user = User(email, password)
+            db.session.add(new_user)
+            db.session.commit()
+            flash("{} User Created".format(email), 'success')
+            session['email'] = email
+            return redirect('/')
+        else:
+            email_error = "User already exists."
+            return render_template('signup.html', title = 'register', password_error = password_error, password_error_two = password_error_two, email_error = email_error)
     else:
-        flash("User already exists.", 'error')
-        return render_template('signup.html', title = 'register')
-    return render_template('signup.html', title = 'register')
+        return render_template('signup.html', title = 'register', password_error = password_error, password_error_two = password_error_two, email_error = email_error)
 
 @app.route('/logout', methods=['GET'])
 def logout():

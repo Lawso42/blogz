@@ -7,19 +7,20 @@
         <tr>
             <td><label for="email">Email</label></td>
             <td>
-                <input name="email" type="email" value="{{ email }}">
+                <input name="email" type="email" value="{{ email }}"><p>{{email_error}}</p>
             </td>
         </tr>
+        
         <tr>
             <td><label for="password">Password</label></td>
             <td>
-                <input name="password" type="password">
+                <input name="password" type="password"><p>{{password_error}}</p>
             </td>
         </tr>
         <tr>
             <td><label for="verify">Verify Password</label></td>
             <td>
-                <input name="verify" type="password">
+                <input name="verify" type="password"><p>{{password_error_two}}</p>
             </td>
         </tr>
     </table>
