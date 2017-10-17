@@ -13,16 +13,18 @@
                 border-radius: 10px;
     </style>
 
-    <h1>UserName</h1>
+    
     
     
     
     {% for row in user_names %}
         
         {% if blog_id == row.owner_id %}
+            
             <h2><a href = "/{{row.email}}?id={{row.id}}"> {{row.blog_title}}</a></h2>
             <p>{{row.blog_body}}</p><br>
-        
+            <h2>
+            <a href = "/blog?id={{row.owner_id}}"><p>Created by {{row.owner.email}}</p><a>
         {% endif %}
         
     {% endfor %}

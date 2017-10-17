@@ -53,6 +53,7 @@ def require_login():
 
 @app.route('/', methods = ['POST', 'GET'])
 def index():
+    owner_id = User.query.all()
     owner = User.query.filter_by(email=session['email']).first()
     #owner_name = Blog.query.filter_by(owner_id = session['owner_id']).first()
     if request.method == 'POST':
@@ -64,10 +65,16 @@ def index():
         db.session.commit()
 
     if request.args:
-        blog_id = request.args.get("id")
+        thing = request.args.get('email')
+        blog_id = int(request.args.get("id"))
         blog = Blog.query.get(blog_id)
+        #username = User.query.filter_by(id=User.id).first().name
+        email = User.query.filter_by(id=Blog.id).first().email 
+        #owner_id = User.query.all()
+        #email = User.query.filter_by(id=blog_id).first()
+        #email = User.query.get(email_name)
         #blogs = Blog.query.filter_by(owner = owner).all()
-        return render_template('blog-single.html', blog=blog)
+        return render_template('blog-single.html', email = email, owner_id = owner_id, blog=blog)
     else:
         #blogs = ''
         blog_info = Blog.query.all()
@@ -84,14 +91,17 @@ def index():
 
 @app.route('/blog')
 def user_list():
+    #email = User.query.filter_by(email=session['email']).first()
     user_id = Blog.query.get('owner_id')
     owner_id = User.query.get('id')
     user_names = Blog.query.all()
     user_info = User.query.all()
     if request.args:
     #if request.method == 'POST':
+        
         blog_id = int(request.args.get("id"))
         user_id = request.args.get("owner_id")
+        email = User.query.filter_by(id=blog_id).first()
         #user_id = User.query.get('id')
         user_names = Blog.query.all()
         user_info = User.query.all()
@@ -100,7 +110,7 @@ def user_list():
         #blog_id = Blog.query.get('id')
         
         #blogs = Blog.query.filter_by(owner = owner).all()
-        return render_template('single-user.html', user_name = user_name, user_names = user_names, blog_id = blog_id, user_more_names = user_more_names, owner_id = owner_id)
+        return render_template('single-user.html', email= email, user_name = user_name, user_names = user_names, blog_id = blog_id, user_more_names = user_more_names, owner_id = owner_id)
     
         
     

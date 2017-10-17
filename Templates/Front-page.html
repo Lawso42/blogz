@@ -19,6 +19,7 @@
         
         <h2><a href = "/?id={{row.id}}"> {{row.blog_title}}</a></h2>
         <p>{{row.blog_body}}</p><br>
+        <h2><a href = "/blog?id={{row.owner_id}}"><p>Created by {{row.owner.email}}</p><a>
         
     {% endfor %}
             
